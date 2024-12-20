@@ -39,7 +39,7 @@ function getManualPages(dir: string): string[] {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "domain.com" // Replace with your actual domain
+  const baseUrl = "https://www.unlimitedvincheck.com" // Replace with your actual domain
 
   // 1. Homepage
   const homeEntry = {
