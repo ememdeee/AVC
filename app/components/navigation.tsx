@@ -63,6 +63,16 @@ export function Navigation() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <Link href="/vehicle-history" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(
+                    "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50",
+                    pathname === '/vehicle-history' && "bg-accent"
+                  )}>
+                    Vehicle History
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <Link href="/window-sticker-lookup" legacyBehavior passHref>
                   <NavigationMenuLink className={cn(
                     "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50",
@@ -107,7 +117,7 @@ export function Navigation() {
         </div>
         <nav className="flex items-center space-x-2">
           <Button asChild>
-            <Link href="https://detailedvehiclehistory.com/members/login" rel="noopener noreferrer">
+            <Link href="https://www.clearvin.com/dealer/login/?a_aid=b3a49a62" rel="noopener noreferrer">
               Login
             </Link>
           </Button>

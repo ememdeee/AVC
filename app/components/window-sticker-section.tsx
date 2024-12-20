@@ -90,7 +90,7 @@ export function WindowStickerSectionLayout() {
               ))}
             </div>
             <div className="text-center">
-              <Link href={'/window-sticker'}>
+              <Link href={'/window-sticker-lookup'}>
                 <Button size="lg" className="mt-4">
                   Get Your Window Sticker
                 </Button>

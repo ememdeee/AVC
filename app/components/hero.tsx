@@ -21,11 +21,11 @@ export function Hero() {
               <SiteForm />
             </div>
           </div>
-          <div className="flex items-center justify-center lg:justify-end">
-            <div className="relative w-full max-w-[500px] aspect-square">
+          <div className="flex items-center justify-center">
+            <div className="relative w-full max-w-[620px] aspect-square">
               <Image
-                src="/Home Page Hero Section.png"
-                alt="Luxury Car"
+                src="/unlimited-vin-check-sample.png"
+                alt="Unlimited VIN Check"
                 fill
                 style={{ objectFit: 'contain' }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

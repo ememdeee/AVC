@@ -10,37 +10,31 @@ const categories = [
     name: "Cars",
     image: "/Cars.png",
     buttonText: "View Car Window Sticker",
-    // link: "/car-window-sticker"
   },
   {
     name: "SUVs and Pickups",
     image: "/SUVs and Pickup.png",
     buttonText: "View SUV Window Sticker",
-    // link: "/suv-window-sticker"
   },
   {
     name: "Electric vehicles",
     image: "/Cars.png",
     buttonText: "View EV Window Sticker",
-    // link: "/ev-window-sticker"
   },
   {
     name: "Classic cars",
     image: "/Classic.png",
     buttonText: "View Classic Car Window Sticker",
-    // link: "/classic-car-window-sticker"
   },
   {
     name: "Trucks",
     image: "/Trucks.png",
     buttonText: "View Truck Window Sticker",
-    // link: "/truck-window-sticker"
   },
   {
     name: "Motorcycles",
     image: "/Motorcycle.png",
     buttonText: "View Motorcycle Window Sticker",
-    // link: "/motorcycle-window-sticker"
   }
 ]
 

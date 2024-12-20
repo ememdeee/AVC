@@ -26,6 +26,8 @@ const SiteForm: React.FC<SiteFormProps> = ({
   const [vin, setVin] = useState<string>('');
   const [plate, setPlate] = useState<string>('');
   const [state, setState] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const [refPage, setRefPage] = useState('');
@@ -94,6 +96,11 @@ const SiteForm: React.FC<SiteFormProps> = ({
     setPlate(uppercasedValue.slice(0, 8)); // Max length: 8
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const numericValue = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    setPhone(numericValue.slice(0, 15)); // Max length: 15
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const url = window.location.href;
@@ -126,7 +133,18 @@ const SiteForm: React.FC<SiteFormProps> = ({
         newErrors.state = 'State is required.';
       }
     }
+
+    if (!email) {
+        newErrors.email = 'Email is required.';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    newErrors.email = 'Please enter a valid email address.';
+    }
       
+
+    if (phone && (phone.length < 8 || phone.length > 15)) {
+      newErrors.phone = 'Phone number must be between 8 and 15 digits.';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -176,19 +194,21 @@ const SiteForm: React.FC<SiteFormProps> = ({
     if (validateForm()) {
       setIsLoading(true);
       if (activeTab === 'vin') {
-        console.log('Submitted Data:', { vin });
+        console.log('Submitted Data:', { vin, email, phone });
         
         // Reset form values
         setVin('');
+        setEmail('');
+        setPhone('');
 
         // Redirect with VIN data
         const redirectUrl = reportType === 'WS'
-          ? `https://www.clearvin.com/en/window-sticker/checkout/${vin}/?a_aid=b3a49a62&chan=uvc&variation=${refPage}`
-          : `https://www.clearvin.com/en/payment/prepare/${vin}/?a_aid=b3a49a62&chan=uvc&variation=${refPage}`;
+          ? `https://detailedvehiclehistory.com/vin-check/ws-preview?vin=${vin}&email=${email}&mobile=${phone}&ref=${refPage}`
+          : `https://detailedvehiclehistory.com/vin-check/preview?vin=${vin}&email=${email}&mobile=${phone}&ref=${refPage}`;
 
         window.location.href = redirectUrl;
       } else if (activeTab === 'plate') {
-        console.log('Submitted Data:', { plate, state });
+        console.log('Submitted Data:', { plate, state, email, phone });
 
         try {
             // Fetch the VIN based on state and license plate
@@ -199,11 +219,13 @@ const SiteForm: React.FC<SiteFormProps> = ({
             // Reset form values
             setPlate('');
             setState('');
+            setEmail('');
+            setPhone('');
             
             // Redirect with fetched VIN data
             const redirectUrl = reportType === 'WS'
-            ? `https://www.clearvin.com/en/window-sticker/checkout/${fetchedVin}/?a_aid=b3a49a62&chan=uvc&variation=${refPage}`
-            : `https://www.clearvin.com/en/payment/prepare/${fetchedVin}/?a_aid=b3a49a62&chan=uvc&variation=${refPage}`;
+            ? `https://detailedvehiclehistory.com/vin-check/ws-preview?vin=${fetchedVin}&email=${email}&mobile=${phone}&ref=${refPage}`
+            : `https://detailedvehiclehistory.com/vin-check/preview?vin=${fetchedVin}&email=${email}&mobile=${phone}&ref=${refPage}`;
             
             window.location.href = redirectUrl;
             } catch (error) {
@@ -271,10 +293,35 @@ const SiteForm: React.FC<SiteFormProps> = ({
               </div>
             )}
 
+            {/* Email and Phone Section */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Input
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  className="text-sm"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+              </div>
+              <div>
+                <Input
+                  type="tel"
+                  placeholder="Phone (Optional)"
+                  value={phone}
+                  className="text-sm"
+                  onChange={handlePhoneChange}
+                />
+                {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+              </div>
+            </div>
+
             {/* Search Button */}
             <Button className="w-full" onClick={handleSubmit} disabled={isLoading}>
               {isLoading ? 'Please wait...' : 'Search'}
             </Button>
+
 
             {/* Links Section */}
             <div className="flex justify-between text-sm text-gray-500 mt-2">
